@@ -1,12 +1,13 @@
-package com.palex.pool.model;
-
-import org.springframework.web.bind.annotation.ControllerAdvice;
+package com.palex.pool.Model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -17,14 +18,15 @@ public class QuestionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private long id;
+    private Long id;
 
     @Version
     @Column(name = "version", nullable = false)
     private Integer version;
 
-    @Column(name = "pool_id")
-    private Long poolId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private PoolEntity poolEntity;
 
     @Column(name = "text")
     private String text;
